@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>leetcode调试</title>
+</head>
+<body>
+
+<!--<script src="./build/main.js"> -->
+
+    <script>
+    //-2  -1 0 0 1 2
+    // var nums = [1,0,-1,0,-2,2]; [0,0,0,0]
+    var nums = [2,1];
+    var target = 3;
+    var findPeakElement = function(nums) {
+        var i = 0,j = nums.length-1;
+        while(i<j){
+            var mid = Math.floor((i+j)/2);
+            // if(mid===0)
+            if(mid===0) if(nums[mid]>nums[mid+1]) return mid;
+            if(mid===nums.length-1) if(nums[mid]>nums[mid-1]) return mid;
+            if(nums[mid]>nums[mid+1] && nums[mid]>nums[mid-1]) return mid;
+
+            if(nums[mid-1]>=nums[mid]) j = mid-1;
+            // else if(nums[mid+1]>=nums[mid]) i = mid+1;
+            else  i = mid+1;
+        }
+        return i;
+    };
+    findPeakElement(nums);
+/***********************************************/
+/*
+var permute = function(nums) {
+    var result = [];
+    nums.sort(function(a,b){ return a-b});
+
+    nextPermutation(nums,result);
+    return result;
+
+};
+
+
+var nextPermutation = function(nums,result) {
+
+    var i=nums.length-1,j = i;
+    //降序排列的数组，左边一个数字即为要更改的部分。
+    while(nums[i-1]>=nums[i]) i--;
+    var baseIndex = i-1;
+
+    //对右边排序。降序数组变为升序排列，用左右夹逼交换即可。
+    while(i<j && i>=0){
+        swap.call(nums,i,j);
+        i++;
+        j--;
+    }
+
+    //排序后找到第一个比baseIndex大的进行交换。交换需要注意baseIndex是否是数组以内的
+    if(baseIndex>=0){
+        i= baseIndex+1;
+        while(nums[i]<=nums[baseIndex])
+            i++;
+        swap.call(nums,i,baseIndex);
+
+        var curResult = [].concat(nums);
+        result.push(curResult);
+        nextPermutation(nums,result);
+    }else return;
+
+
+
+};
+
+
+function swap(i,j){
+    var temp;
+    temp = this[j];
+    this[j] = this[i];
+    this[i] = temp;
+    return this;
+}
+
+var arr = [1,2,3];
+permute(arr);
+
+*/
+</script>
+</body>
+</html>

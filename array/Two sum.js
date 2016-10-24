@@ -10,7 +10,7 @@ var twoSum = function(nums, target) {
 
     for(var i=0;i<nums.length;i++){
         var cur = nums[i];
-        if(dic[target-cur]!==undefined){//需要附加判断防止上面的情况发生
+        if(dic[target-cur]!==undefined){
             return [i,dic[target-cur]];
         }
         dic[cur] = i;
