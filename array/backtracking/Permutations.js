@@ -4,6 +4,9 @@
  * 思路： next permutaion那题计算的是比本轮大的下一个排列。那么简单来想，最开始
  的时候升序排列，每次递归调用nextpermutation后得到新一轮值后push进数组中，然后下一轮计算
  注意点： 除了next permutation里提到的。还包括js 引用传值的问题。即line 41行，如果传入的是nums数组，则最终会是一模一样的值
+
+思路二： 用backtracking。枚举并剪枝。注意需要用一个used对象去存储已经用过的数字。保证这是一个排列而不是组合。然后每次回退后需要重新置false。使得下一次循环还可以用该数
+ 但是很奇怪的是，leetcode无法通过，25个case只有8个通过。就用[1]来测试的话，浏览器测试结果是正确的。但是output给出的却是[[1,2,1]]..=。=
  */
 var permute = function(nums) {
     var result = [];
@@ -54,3 +57,44 @@ function swap(i,j){
     this[i] = temp;
     return this;
 }
+
+
+
+/*****************************method2*****************************/
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ ，时间复杂度同样是O(n!)
+ */
+var permute = function(nums) {
+        var result = [];
+        var used = {};
+        solution = [];
+        backtrack(0,nums,result,used);
+
+        return result;
+
+    };
+
+    var solution = [];
+
+    function backtrack(n,nums,result,used){
+        if(n===nums.length){
+            result.push([].concat(solution));
+            return;
+        }
+
+        for(var i=0;i<nums.length;i++){
+
+            if(!used[nums[i]]){
+                used[nums[i]] = true;
+
+                solution[n] = nums[i];
+                backtrack(n+1,nums,result,used);
+
+                used[nums[i]] = false;          //attention
+
+            }
+        }
+
+    }
