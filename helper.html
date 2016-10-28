@@ -11,40 +11,31 @@
     <script>
     //-2  -1 0 0 1 2
     // var nums = [1,0,-1,0,-2,2]; [0,0,0,0]
-    // var target = 3;
-    var nums = [1];
-   var permute = function(nums) {
-        var result = [];
-        var used = {};
-        backtrack(0,nums,result,used);
+    var target =32;
+    var nums = [1,2,4];
+   var combinationSum4 = function(nums, target) {
 
+        var result = 0;
+        var solution = 0;
+        nums.sort(function(a,b){return a-b;})
+        backtrack(target);
         return result;
+        function backtrack(leftSum){
 
-    };
+            if(leftSum===0){
+                // result++;
+                return result;
+            }
 
-    var solution = [];
-
-    function backtrack(n,nums,result,used){
-        if(n===nums.length){
-            result.push([].concat(solution));
-            return;
-        }
-
-        for(var i=0;i<nums.length;i++){
-
-            if(!used[nums[i]]){
-                used[nums[i]] = true;
-
-                solution[n] = nums[i];
-                backtrack(n+1,nums,result,used);
-
-                used[nums[i]] = false;          //attention
-
+            for(var i=0;i<nums.length;i++){
+                if(leftSum<nums[i]) return;
+                // solution+=nums[i];
+                return 1+backtrack(leftSum-nums[i]);
+                // solution-=nums[i];
             }
         }
-
-    }
-    permute(nums);
+    };
+    combinationSum4(nums,target);
 /***********************************************/
 /*
 var permute = function(nums) {
