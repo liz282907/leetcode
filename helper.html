@@ -12,30 +12,45 @@
     //-2  -1 0 0 1 2
     // var nums = [1,0,-1,0,-2,2]; [0,0,0,0]
     var target =32;
-    var nums = [1,2,4];
-   var combinationSum4 = function(nums, target) {
+    var nums = [1,2];
+var letterCombinations = function(digits) {
 
-        var result = 0;
-        var solution = 0;
-        nums.sort(function(a,b){return a-b;})
-        backtrack(target);
-        return result;
-        function backtrack(leftSum){
+    var phoneDict = {
+        "0": [" "],
+        "1": [""],
+        "2":['a','b','c'],
+        "3": ['d','e','f'],
+        "4": ['g','h','i'],
+        "5": ['j','k','l'],
+        "6": ['m','n','o'],
+        "7": ['p','q','r','s'],
+        "8": ['t','u','v'],
+        "9": ['w','x','y','z']
+    }
 
-            if(leftSum===0){
-                // result++;
-                return result;
-            }
+    var solution = [];
+    var result = [];
+    if(!digits) return [];
+    backtrack(0,result,digits,solution,phoneDict);
+    return result;
 
-            for(var i=0;i<nums.length;i++){
-                if(leftSum<nums[i]) return;
-                // solution+=nums[i];
-                return 1+backtrack(leftSum-nums[i]);
-                // solution-=nums[i];
-            }
+
+};
+
+function backtrack(digitIndex,result,digits,solution,phoneDict){
+        if(digitIndex===digits.split("").length){
+            result.push(solution.join(""));
+            solution = [];
+            return;
         }
-    };
-    combinationSum4(nums,target);
+        for(var choiceDigit of phoneDict[digitIndex]){
+            solution.push(choiceDigit);
+            backtrack(digitIndex+1,result,digits,solution,phoneDict);
+            solution.pop();
+        }
+    }
+
+    letterCombinations("2");
 /***********************************************/
 /*
 var permute = function(nums) {

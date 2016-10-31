@@ -6,7 +6,6 @@
  注意点： 除了next permutation里提到的。还包括js 引用传值的问题。即line 41行，如果传入的是nums数组，则最终会是一模一样的值
 
 思路二： 用backtracking。枚举并剪枝。注意需要用一个used对象去存储已经用过的数字。保证这是一个排列而不是组合。然后每次回退后需要重新置false。使得下一次循环还可以用该数
- 但是很奇怪的是，leetcode无法通过，25个case只有8个通过。就用[1]来测试的话，浏览器测试结果是正确的。但是output给出的却是[[1,2,1]]..=。=
  */
 var permute = function(nums) {
     var result = [];
