@@ -15,3 +15,8 @@ var maxDepth = function(root) {
 
     return Math.max(maxDepth(root.left),maxDepth(root.right))+1;
 };
+
+/**
+非递归解法，用层次遍历。每一层计算高度+1.存储一个最大高度
+
+*/

@@ -42,3 +42,6 @@ var preorderTraversal = function(root) {
 
     return result;
 };
+/*
+层次遍历也是维护一个stack,然后先把root push进去。在循环while(stack.length)中先unshift,注意是unshift不是pop哟
+*/
