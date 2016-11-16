@@ -45,3 +45,32 @@ var preorderTraversal = function(root) {
 /*
 层次遍历也是维护一个stack,然后先把root push进去。在循环while(stack.length)中先unshift,注意是unshift不是pop哟
 */
+
+/*
+注意点：
+1，可以用叶子节点（if(!node && !node.left && !node.right) 去做终止条件，但这样的话，在最外层还要加一个！root的判断。
+也可以直接用空节点做终止条件。
+
+比如 sum root to Leaf nUMBERs中。一般建议的是
+    if(!node) return 0;    //1，一定要加这个判断，要不然 sumNumbers里面就要加!root判断。
+
+    //blah,blah
+    if(!node.left && !node.right ) {
+        return sum;
+    }
+1处可以用来限制 root为空的情况。具体是return 还是return 表达式，看具体情况。对于path sum来说，return 0可以限制到叶节点下面的节点，做终止条件。
+
+2，还是老生常谈的问题，引用传值。
+因为树的递归，相当于两次进去。最终还得返回到原来的状态。原来backtrack只有一个递归，而且需要返回到原来的状态以进行下一轮本级运算，所以需要pop。下次访问的还是原来的数组。但是
+现在两个递归..
+
+        sumPath(node.left,[].concat(curPath)); //一定要注意！不能直接传数组，会是引用。
+        sumPath(node.right,[].concat(curPath));
+那只能这样[].concat咯，那这个时候也不用pop了~
+比如，见下面 path sum2 的部分
+
+把结果数组传过去的时候一定要另开一个。要不然会在原来的基础上进行变动，会相互影响。
+具体可以看 sum root to leaf numbers的几种解法。能传值就传值，比如第三种递归就不错。必须传引用的时候注意深复制。
+
+3, 有时候递归返回值会更加方便一点，见 path sum
+*/
