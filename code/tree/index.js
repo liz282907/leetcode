@@ -72,5 +72,6 @@ var preorderTraversal = function(root) {
 把结果数组传过去的时候一定要另开一个。要不然会在原来的基础上进行变动，会相互影响。
 具体可以看 sum root to leaf numbers的几种解法。能传值就传值，比如第三种递归就不错。必须传引用的时候注意深复制。
 
-3, 有时候递归返回值会更加方便一点，见 path sum
+3, 有时候递归返回值会更加方便一点，见 path sum/ sum root to leaf numbers
+或者node.left = func(node.left)。类似的栗子见bst的insert，delete思想很棒。
 */

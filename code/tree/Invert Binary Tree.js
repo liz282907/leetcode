@@ -8,6 +8,7 @@
 /**
  * @param {TreeNode} root
  * @return {TreeNode}
+ 思路，递归交换两个树，用的是遍历的思路。
  */
 var invertTree = function(root) {
 
