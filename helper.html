@@ -62,34 +62,24 @@ var longestPalindrome = function(s) {
 
 // longestPalindrome('aaabaaaa');
 
-var minimumTotal = function(triangle) {
-  if(!triangle.length) return 0;
+var maxProfit = function(prices) {
+   var result = [0];var minPrice;
 
-  var sumArr = new Array(triangle.length);
-
-  //init
-  sumArr[0] = triangle[0][0];
-  for(var i=1;i<triangle.length;i++) sumArr[i] = Number.POSITIVE_INFINITY;
-
-  for(i=1;i<triangle.length;i++){
-
-    //每行第一个没有左侧数字
-
-    for(var j = triangle[i].length-1;j>=0;j--){
-    //从左往右的话会覆盖，应该从右往左计算
-      if(j===0) sumArr[j] += triangle[i][j];
-      else
-        sumArr[j] = triangle[i][j]+Math.min(sumArr[j-1],sumArr[j]);
+  minPrice = prices[0];
+  for(var i=0;i<prices.length;i++){
+    if(prices[i]<=minPrice) {
+      minPrice = prices[i];
+      result[i] = 0;
+    }
+    else{
+      result[i] = Math.max(result[i-1],prices[i]-minPrice);
     }
 
   }
-
-  return Math.min.apply(null,sumArr);
+  return Math.max.apply(null,result);
 
 };
-
-minimumTotal([[-1],[-2,-3]]);
-
+maxProfit([2,4,1]);
 
 // maxSubArray(nums);
 /***********************************************/
