@@ -38,7 +38,60 @@ var maxSubArray = function(nums) {
 
 };
 
-maxSubArray(nums);
+var longestPalindrome = function(s) {
+    var arr = s.split('');
+    var result = s[0];
+    for(var i=0;i<s.length;i++){
+        var getResult = true;
+        var j = arr.lastIndexOf(arr[i]);
+        if(j===i) continue;
+        var tempI = i,tempJ = j;
+
+        while(tempI<=tempJ){
+            if(arr[tempI]!==arr[tempJ]) {getResult = false;break;}
+            else{
+                tempI++;
+                tempJ--;
+            }
+        }
+        if(!getResult) continue;
+        if(s.slice(i,j+1).length>result.length) result = s.slice(i,j+1);
+    }
+    return result;
+};
+
+// longestPalindrome('aaabaaaa');
+
+var minimumTotal = function(triangle) {
+  if(!triangle.length) return 0;
+
+  var sumArr = new Array(triangle.length);
+
+  //init
+  sumArr[0] = triangle[0][0];
+  for(var i=1;i<triangle.length;i++) sumArr[i] = Number.POSITIVE_INFINITY;
+
+  for(i=1;i<triangle.length;i++){
+
+    //每行第一个没有左侧数字
+
+    for(var j = triangle[i].length-1;j>=0;j--){
+    //从左往右的话会覆盖，应该从右往左计算
+      if(j===0) sumArr[j] += triangle[i][j];
+      else
+        sumArr[j] = triangle[i][j]+Math.min(sumArr[j-1],sumArr[j]);
+    }
+
+  }
+
+  return Math.min.apply(null,sumArr);
+
+};
+
+minimumTotal([[-1],[-2,-3]]);
+
+
+// maxSubArray(nums);
 /***********************************************/
 /*
 var permute = function(nums) {
