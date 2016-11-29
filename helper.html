@@ -80,7 +80,45 @@ var maxProduct = function(nums) {
 
     return maxArr[nums.length-1];
 };
-maxProduct([-4,-3,-2]);
+
+// maxProduct([-4,-3,-2]);
+
+var lengthOfLIS = function(nums) {
+
+    if(!nums.length) return 0;
+    var LISArr = [[nums[0]]];
+    var maxLength = 1;
+    for(var i=1;i<nums.length;i++){
+
+        var prevArr = LISArr[i-1];
+        if(nums[i]<prevArr[0])
+            LISArr[i] = [nums[i]]
+        else{
+            LISArr[i] = bisectInsert(LISArr[i-1],nums[i]);
+        }
+        maxLength = Math.max(maxLength,LISArr[i].length);
+
+    }
+    return maxLength;
+
+    function bisectInsert(arr,val){
+        var i=0,j = arr.length;
+        while(i<j){
+            mid = Math.floor((i+j)/2);
+            if(arr[mid]<val) i = mid+1;
+            else j = mid;
+        }
+
+        //while(arr[i]===val) i++;//如果有重复元素，找到第一个大于它的。插入。
+        return arr.slice(0,i).concat(val);
+    }
+
+};
+
+lengthOfLIS([1,3,6,7,9,4,10,5,6]);
+
+
+
 
 // maxSubArray(nums);
 /***********************************************/

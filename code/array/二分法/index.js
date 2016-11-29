@@ -28,7 +28,7 @@ function twoPartSearch(nums,target){
 */
 function twoPartSearch(nums,target){
     var i = 0,
-        j = nums.length;     //1
+        j = nums.length;     //1.一定不能忘了这边不是nums.length-1.因为会遇到[2].找5的情况。循环都进不了。
     var oneIndex = -1;
     while (i < j) {           //2
         var mid = Math.floor((i + j) / 2);
