@@ -31,13 +31,13 @@ arr[i].
 其实...这种思路是不对的，楼主在submit后发现test case没有通过。[1,3,6,7,9,4,10,5,6]。仔细一想，发现不太对..
 但二分+遍历的大方向还是对的。只能在此基础上修改。
  */
- /* wrong
+ // wrong
 var lengthOfLIS = function(nums) {
 
     if(!nums.length) return 0;
 
     var LISArr = [[nums[0]]];
-    var maxArr = [nums[0]];
+    var lenArr = [1];
     var maxLength = 1;
     for(var i=1;i<nums.length;i++){
 
@@ -67,7 +67,23 @@ var lengthOfLIS = function(nums) {
     }
 
 };
-*/
+//改正的dp
+var lengthOfLIS = function(nums) {
+
+    if(!nums.length) return 0;
+    for(var i=0;i<nums.length;i++) lenArr[i] = 1;
+    for(i=1;i<nums.length;i++){
+
+        for(var j=0;j<i;j++){
+            if(nums[j]<nums[i])
+                lenArr[i] = Math.max(lenArr[i],lenArr[j]+1);
+        }
+    }
+
+    return Math.max.apply(null,lenArr);
+};
+
+
 
 //accepted。总结来说是  遍历基础上二分插入排序找前面的个数。
 var lengthOfLIS = function(nums) {
