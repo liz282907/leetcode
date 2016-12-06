@@ -138,6 +138,31 @@ var numDecodings = function(s) {
     return nums[s.length-1];
 };
 
+var numDistinct = function(s, t) {
+
+    var numArr = [];
+    for(var i=0;i<=t.length;i++){
+        numArr[i] = new Array(s.length+1);
+    }
+    //第一行初始化。只要不断删除就可以，因此都是1
+    for(var j=0;j<=s.length;j++){
+        numArr[0][j] = 1;
+    }
+    //第一列初始化，因为t是target,现在s<t。那么无论如何都不行
+    for(i=1;i<=t.length;i++)
+        numArr[i][0] = 0;
+
+    for(i=1;i<=t.length;i++)
+        for(j=1;j<=s.length;j++){
+            numArr[i][j] = numArr[i][j-1];
+            if(s[j-1]===t[i-1]) numArr[i][j]+=numArr[i-1][j-1];
+        }
+    return numArr[t.length][s.length];
+
+
+};
+numDistinct('b','a');
+
 
 // maxSubArray(nums);
 /***********************************************/
