@@ -81,3 +81,36 @@ var numDistinct = function(s, t) {
 
 
 };
+
+/*
+看到这么一种解法...
+prefixVec stores the numbers of t's prefixes occur when we iterate through s. the dp equation is when we encounter a character which also occurs in t at position i, then prefixVec[i] += prefixVec[i-1] (i > 0), prefixVec[i]++ (i = 0). we calculate prefixVec backwards so the new value produced won't influence the calculation of next value (at i-1), otherwise we need a temp vector.
+
+int numDistinct(string s, string t) {
+    int tLen = t.size();
+    vector<int> prefixVec(tLen,0);
+    for (auto c: s)
+        for (int i = tLen-1;i >= 0;--i)
+            if (t[i] == c)
+                prefixVec[i] = (i > 0 ? prefixVec[i-1] : 1) + prefixVec[i];
+    return prefixVec.back();
+}
+
+/*
+example showing how prefixVec is calculated when we eat a new char
+rabbbit rabbit
+
+rabbit
+000000
+100000 r
+110000 a
+111000 b
+112100 b
+113300 b
+113330 i
+113333 t
+*/
+
+
+
+*/
