@@ -21,6 +21,8 @@ Subscribe to see which companies asked this question
          X X O X  ->       X X O X    ->       X X X X
          X O X X           X 1 X X             X O X X
          X O X X           X 1 X X             X O X X
+    对于visited数组，最朴素的是对原始数组另开一个同样大小的数组，然后设true,false。
+    但是这样空间开销大，比较好的是用一个set
  */
 var solve = function(board) {
     if(board.length<=0) return;   //attention！防止board为空下面board[0]undefined

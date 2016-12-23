@@ -244,8 +244,192 @@ function bfs(x,y,visited,board){
     }
 
 }
-solve(["OOO".split(''),"OOO".split(''),"OOO".split('')])
+// solve(["OOO".split(''),"OOO".split(''),"OOO".split('')])
 
+var canFinish = function(numCourses, prerequisites) {
+    var adjList = [];   //邻接矩阵
+    var queue = [];//存储入度为0的点
+    var inDegreeArr = [],count=0; //度数数组
+
+    //初始化邻接表
+    for(var i=0;i<numCourses;i++) adjList[i] = [];
+
+    //now :这边构造出度邻接表。
+    //before 构造的是入度邻接表// 2->1  3->1  then adjList[1] = [2,3]
+    for(i=0;i<prerequisites.length;i++){
+        var cur = prerequisites[i];
+        adjList[cur[1]].push(cur[0]);  // 1->2 1->3  then adjList[1] = [2,3]
+    }
+    //构造入度数组
+    for(i=0;i<numCourses;i++) inDegreeArr[i] = 0;
+    for(i=0;i<numCourses;i++){
+        // inDegreeArr[i] = 0;   不可以放这边
+        for(var j=0;j<adjList[i].length;j++){
+            var adjV = adjList[i][j];
+            inDegreeArr[adjV]+=1;
+        }
+    }
+    for(i=0;i<inDegreeArr.length;i++){
+        if(inDegreeArr[i]===0) queue.push(i);
+    }
+
+    while(queue.length){
+        cur = queue.shift();
+        count++;
+        //对它的每个邻接点，入度减1,同时，如果减了以后，入度为0，放入queue
+        for(i=0;i<adjList[cur].length;i++){
+            var curAdj = adjList[cur][i];
+            if((--inDegreeArr[curAdj])===0) queue.push(curAdj);
+        }
+
+    }
+    if(count!==numCourses) return false;
+    else return true;
+};
+
+
+
+// canFinish(3,[[1,0],[2,1]]);
+var canJump = function(nums) {
+    var count = 0;
+    backtrack(nums.length-1,nums,0);
+    if(count>0) return true;
+    else return false;
+
+    function backtrack(leftSum,nums,start){
+        if(leftSum===0 && start===nums.length-1){
+            count++;
+            return;
+        }
+        if(start>nums.length-1) return;
+
+        for(var i=1;i<=nums[start];i++){
+            if(leftSum<i) return;
+            backtrack(leftSum-i,nums,start+i);
+        }
+    }
+};
+// canJump([2,0,0])
+var myAtoi = function(str) {
+    var i=0,sign=1;
+    while(str[i]===' ') i++;
+    var nonSpaceStr = str.slice(i);
+
+    if(nonSpaceStr.search(/^[+-]/)!==-1) {
+        sign = nonSpaceStr[0]==='-'?-1:1;
+        nonSpaceStr = nonSpaceStr.slice(1);
+    }
+
+    var sum=0,numMatch = nonSpaceStr.match(/([1-9]\d*)+/);
+
+    if(numMatch){
+
+        var  left = nonSpaceStr.slice(0,nonSpaceStr.indexOf(numMatch[0][0]));
+        if(left.search(/[^0]+/g)!==-1) return 0;
+
+        for(i=0;i< numMatch[0].length;i++)
+        sum = 10*sum + (numMatch[0][i]-'0');
+
+        sum *= sign;
+
+        if(Math.abs(sum)>Math.pow(2,31)-1) {
+            if(sign>0) sum = Math.pow(2,31)-1;
+            else sum = Math.pow(2,31)*sign;
+        }
+    }
+    return sum;
+
+    //2147483648 2^31-1
+    // return sum;
+};
+
+// myAtoi('  -0012a42'); //010  +-2 "-2147483648"
+// myAtoi("-1");
+
+var longestCommonPrefix = function(strs) {
+
+    if(strs.length<2) return strs[0]||"";
+
+    var commonPrefix = "";
+    strs = strs.sort(function(s1,s2){
+        return s1.length<s2.length;
+    });
+    var i=0,j=0;
+    var left = strs[0],right = strs[1];
+    while(left[i]===right[j] && i<left.length && j< right.length){
+        i++;
+        j++;
+    }
+    for(;i>=0;i--){
+        commonPrefix = left.slice(0,i);
+        for(j=2;j<strs.length;j++){
+            var curStr = strs[j];
+            if(curStr.slice(0,i)!==commonPrefix) break;
+        }
+        if(j>=strs.length) break;    //here
+    }
+    return commonPrefix;
+};
+
+// longestCommonPrefix(["a","a",'b']);
+
+var generateParenthesis = function(n) {
+    var solution = ['('],options = ['(',')'];
+    var result = [];
+    backtrack(1,2*n-1,options);
+    return result;
+
+    function backtrack(index,total,options){
+        if(index===total){
+            solution[total] = ')';
+            var solu = solution.join("");
+            console.log(solu);
+            if(isValid(solu)) result.push(solu);
+            return;
+        }
+
+        for(var i=0;i<2;i++){
+            solution[index] = options[i];
+            backtrack(index+1,total,options);
+        }
+    }
+
+
+};
+
+var isValid = function(s) {
+    var stack = [],dic = {'(':')'};
+    for(var i=0;i<s.length;i++){
+        var cur = s[i];
+        if(dic[cur]) stack.push(cur);
+        else{
+            if(dic[stack.pop()]!==cur) return false;
+        }
+    }
+    return !stack.length;
+};
+
+generateParenthesis(2);
+
+var generateParenthesis = function(n){
+    var result = [];
+    recursion(0,n,0,'');
+    return result;
+
+    function recursion(leftCount,n,rightCount,s){
+       if(leftCount+rightCount===2*n) {
+           result.push(s);
+           return;
+       }
+
+        if(leftCount<n)
+            recursion(leftCount+1,n,rightCount,s+'(');
+
+        if(leftCount>rightCount)
+           recursion(leftCount,n,rightCount+1,s+')');
+
+    }
+}
 
 
 // maxSubArray(nums);
