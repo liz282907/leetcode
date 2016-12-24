@@ -9,8 +9,8 @@ dp[i + 1] = max(dp[i], dp[i] + a[i + 1])
 if(sum < 0) {
     sum = 0;
 }
+变种可以看 logest valid parentheses 。有点像
 */
-
 /**
  * @param {number[]} nums
  * @return {number}

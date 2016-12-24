@@ -10,10 +10,15 @@
         j++;
     }
 
-
+经典的递归解法：
+generate parentheses
 
 
 
 to see:
 Implement strStr() KMP算法、Boyer-Mooer算法和Rabin-Karp算法
+
+
+ask:
+dict初始化的问题
 */

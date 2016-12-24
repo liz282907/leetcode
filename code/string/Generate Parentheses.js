@@ -58,6 +58,7 @@ var isValid = function(s) {
 递归解法
 一步步构造字符串。当左括号出现次数 <n 时，就可以放置新的左括号。当右括号
 出现次数小于左括号出现次数时，就可以放置新的右括号。
+很经典的递归解法
 */
 var generateParenthesis = function(n){
     var result = [];
