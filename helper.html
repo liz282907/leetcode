@@ -78,8 +78,34 @@ var longestValidParentheses = function(s) {
     return maxCount;
 };
 
-longestValidParentheses("()(()");
+// longestValidParentheses("()(()");
 // longestPalindrome('aaabaaaa');
+
+
+var addBinary = function(a, b) {
+    var carry = 0,curV = 0,j = 0,i=0,
+        result = [],length = Math.max(a.length, b.length);
+
+    var inverseA = a.split('').reverse(),
+        inverseB = b.split('').reverse();
+
+    while (i < length && j < length) {
+        var left = i >= a.length ? 0 : parseInt(inverseA[i]);
+        var right = j >= b.length ? 0 : parseInt(inverseB[j]);
+        var sum = left + right + carry;
+        result[i] = sum % 2;
+        carry = parseInt(sum / 2);
+        i++;j++;    //别忘了
+    }
+    if(carry) result[i+1] = carry; //这边需要if判断，不能直接result[i+1] = carry
+
+    return result.reverse().join(''); //别忘了翻转
+
+};
+addBinary('0','0');
+
+
+
 var maxProduct = function(nums) {
     var maxArr = [nums[0]];
     var minArr = [nums[0]];
@@ -200,6 +226,26 @@ var wordBreak = function(s, wordDict) {
 };
 // wordBreak('abcd',new Set(["a","abc","b","cd"]));
 // numDistinct('b','a');
+
+var lengthOfLongestSubstring = function(s) {
+
+    var dict = {},
+        max = 0,j=0;
+
+    for(var i=0;i<s.length;i++){
+        if((dict[s[i]]!==undefined))     //不能直接用!dict，因为index可能为0
+            j = Math.max(j,dict[s[i]]+1);   //j左侧或右侧，所以要比较下
+
+        max = Math.max(max,i-j+1);
+        dict[s[i]] = i;
+
+    }
+    return max;
+
+
+};
+// lengthOfLongestSubstring("abba");
+
 
 var solve = function(board) {
     if(board.length<=0) return;   //attention！防止board为空下面board[0]undefined

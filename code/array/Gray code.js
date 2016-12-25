@@ -1,36 +1,32 @@
 /**
- * @param {number[]} nums
- * @param {number} target
+The gray code is a binary numeral system where two successive values differ in only one bit.
+
+Given a non-negative integer n representing the total number of bits in the code, print the sequence of gray code. A gray code sequence must begin with 0.
+
+For example, given n = 2, return [0,1,3,2]. Its gray code sequence is:
+
+00 - 0
+01 - 1
+11 - 3
+10 - 2
+Note:
+For a given n, a gray code sequence is not uniquely defined.
+
+For example, [0,2,3,1] is also a valid gray code sequence according to the above definition.
+
+For now, the judge is able to judge based on one instance of gray code sequence. Sorry about that.
+
+Subscribe to see which companies asked this question
+ * @param {number} n
  * @return {number[]}
- 思路，不能排序，因为需要返回index,需要用hash存储index,同时需要考虑target为6，cur=3这种，pairTarget也是
- 也是3的情况。这里面还包括两种，一种是arr里面其实有两个3，一种是只包括本身。
+ 000
+ 001
+ 011
+ 111
+ 110
+ 100
+
  */
-var twoSum = function(nums, target) {
-    var dic = {};
-
-    for(var i=0;i<nums.length;i++){
-        var cur = nums[i];
-        if(dic[target-cur]!==undefined){
-            return [i,dic[target-cur]];
-        }
-        dic[cur] = i;
-    }
-
-/*
-    //two-pass hash method
-    var dic = {};
-
-    nums.forEach(function(num,index){
-        dic[num] = index;
-    });
-
-    for(var i=0;i<nums.length;i++){
-        var cur = nums[i];
-        if(dic[target-cur]!==undefined && dic[target-cur]!==i){//需要附加判断防止上面的情况发生
-            return [i,dic[target-cur]];
-        }
-    }
-
-*/
+var grayCode = function(n) {
 
 };

@@ -12,6 +12,7 @@
 
 经典的递归解法：
 generate parentheses
+longest substring 可以考虑 pointer 。详见 longest substring without repeating character
 
 
 
