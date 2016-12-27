@@ -30,3 +30,5 @@ var singleNumber = function(nums) {
     }
     return result;
 };
+//还看到一种方法，是先O(lgn)排序，然后对每一个nums[i]，看左右是否有三个相同的，如果有则pass。没有的话说明就是
+//要找的
