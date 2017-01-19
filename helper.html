@@ -489,7 +489,7 @@ var isValid = function(s) {
     return !stack.length;
 };
 
-generateParenthesis(2);
+// generateParenthesis(2);
 
 var generateParenthesis = function(n){
     var result = [];
@@ -511,7 +511,56 @@ var generateParenthesis = function(n){
     }
 }
 
+var frequencySort = function(s) {
+    var dic = {},maxCount = 0,result = '';
+    for(var i=0;i<s.length;i++){
+        dic[s[i]] = dic[s[i]]? dic[s[i]]+1:1;
+    }
+    var curDic = Object.keys(dic).reduce(function(prev,chr){
+        if(!prev[dic[chr]]) prev[dic[chr]] = [chr];
+        else prev[dic[chr]].push(chr);
+        return prev;  //attention2: 别忘了return
+    },{});
+    //curDic: {1:['t','r'],2:['e']}
+    Object.keys(curDic).sort(function(a,b){return b-a}) //attention1: 降序排列
+            .forEach(function(count){
+        var strOfCount = curDic[count].map(function(chr){
+            var temp = '';
+            for(i=0;i<count;i++) temp+=chr;
+            return temp;
+        }).join('');
+        result += strOfCount;
+    })
+    return result;
 
+};
+// frequencySort('tree')
+
+var topKFrequent = function(nums, k) {
+    var dic = {},revertDic = {},maxCount = 0;
+    var result = [];
+    for(var i=0;i<nums.length;i++){
+        var countInDic = dic[nums[i]];
+        dic[nums[i]] = countInDic? countInDic+1:1;
+        maxCount = Math.max(maxCount,dic[nums[i]]);
+    }
+    revertDic = Object.keys(dic).reduce(function(prev,chr){
+        var count = dic[chr];
+        if(!prev[count]) prev[count] = [];
+        prev[count].push(parseInt(chr));
+        return prev;
+    },{});
+    var topK = maxCount;
+    for(i=k;i>0;topK--){
+        if(revertDic[topK]) {
+            result = result.concat(revertDic[topK]);
+            i--;
+        }
+    }
+    return result;
+};
+
+topKFrequent([1,1,1,2,2,3],2);
 // maxSubArray(nums);
 /***********************************************/
 /*
