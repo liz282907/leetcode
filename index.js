@@ -9,6 +9,7 @@
         i++;
         j++;
     }
+3. 空判断： ListNode fast = head.next; 首先就要考虑head是否为空
 
 经典的递归解法：
 generate parentheses

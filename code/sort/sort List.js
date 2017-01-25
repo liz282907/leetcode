@@ -6,6 +6,9 @@
  *     this.next = null;
  * }
  * related problem: merge two sorted lists
+ * 思路：用归并排序，跟这题相关的还包括merge k sorted lists。那边是用了一个队列，每两对合并一次。
+ * 这边也可以看成把一个list断开成节点，然后合并。但是用归并比较好。
+ * 先找到中间节点（用快慢指针），然后断开成两段，进行合并。（后序遍历的思路，先处理两段后合并）
  */
 /**
  * @param {ListNode} head

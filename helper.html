@@ -102,7 +102,7 @@ var addBinary = function(a, b) {
     return result.reverse().join(''); //别忘了翻转
 
 };
-addBinary('0','0');
+// addBinary('0','0');
 
 
 
@@ -560,7 +560,65 @@ var topKFrequent = function(nums, k) {
     return result;
 };
 
-topKFrequent([1,1,1,2,2,3],2);
+// topKFrequent([1,1,1,2,2,3],2);
+
+
+var findKthLargest = function(nums, k) {
+    quick_sort(nums,0,nums.length-1);
+    return nums[k-1];
+
+    function quick_sort(nums,start,end){
+        if((end-start+1)<=3){
+            insertSort(nums,start,end);
+        }
+        else{
+            var pivot = findMedian(nums,start,end);
+            var insertIndex  = partition(nums,pivot,start+1,end-2);
+            swap(nums,insertIndex,end-1);
+            quick_sort(nums,start,insertIndex-1);
+            quick_sort(nums,insertIndex+1,end);
+        }
+
+    }
+    function partition(nums,pivot,start,end){
+
+        while(start<end && start>0 && end<nums.length){
+            while(nums[start]>pivot) start++;
+            while(nums[end]<pivot) end--;
+            if(start<end) swap(nums,start,end);
+        }
+        return start;
+    }
+    function insertSort(arr,start,end){
+        for(var i=start+1;i<=end;i++){
+            var cur = arr[i];
+            for(var j=i-1;j>=0;j--){
+                if(cur>arr[j]) arr[j+1] = arr[j];
+                else break;
+            }
+            arr[j+1] = cur;
+
+        }
+    }
+
+    function findMedian(nums,start,end){
+        var middle = start+ Math.floor((end-start)/2);
+        if(nums[start]<nums[middle]) swap(nums,start,middle);
+        if(nums[start]<nums[end]) swap(nums,start,end);
+        if(nums[middle]<nums[end]) swap(nums,middle,end);
+
+        swap(nums,middle,end-1);
+        return nums[end-1];
+    }
+
+    function swap(nums,i,j){
+        var temp = nums[j];
+        nums[j] = nums[i];
+        nums[i] = temp;
+    }
+
+};
+findKthLargest([7,6,5,4,3,2,1],5);
 // maxSubArray(nums);
 /***********************************************/
 /*
