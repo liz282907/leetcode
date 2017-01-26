@@ -654,7 +654,28 @@ var findKthLargest = function(nums, k) {
 
 };
 
-findKthLargest([3,3,3,3,3,3,3,3,3],1);
+// findKthLargest([3,3,3,3,3,3,3,3,3],1);
+var firstMissingPositive = function(nums) {
+    debugger;
+    if(!nums.length) return 1;
+    function swap(nums,i,j){
+        var temp = nums[j];
+        nums[j] = nums[i];
+        nums[i] = temp;
+    }
+    for(var i=0;i<nums.length;i++){
+        while(nums[i]!==(i+1)){
+            if(nums[i]<=0 || nums[i]>nums.length || nums[i] == nums[nums[i] - 1]) break;
+            else swap(nums,i,nums[i]-1);
+        }
+    }
+    for(i=0;i<nums.length;i++){
+        if(nums[i]!==(i+1)) return i+1;
+    }
+    return nums.slice(-1)[0]+1;
+};
+
+firstMissingPositive([1,0])
 // maxSubArray(nums);
 /***********************************************/
 /*

@@ -1,6 +1,6 @@
 /**
 * 常用技巧
-1.
+1.missing number可以考虑桶排序（nums[i]=i）+原地交换
 
 注意点：
 1. 对于grid[0].length这种，首先要判断grid是否为null
@@ -38,7 +38,8 @@ longest substring 可以考虑 pointer 。详见 longest substring without repea
 
 to see:
 Implement strStr() KMP算法、Boyer-Mooer算法和Rabin-Karp算法
-findKthLargest  快排超时
+findKthLargest  快排时间复杂度
+堆排序
 
 
 summary:
