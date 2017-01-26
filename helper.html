@@ -562,6 +562,40 @@ var topKFrequent = function(nums, k) {
 
 // topKFrequent([1,1,1,2,2,3],2);
 
+var findKthLargest2 = function(nums, k) {
+     quick_sort(nums,0,nums.length-1);
+     return nums[k-1];
+
+    function quick_sort(nums,start,end){
+        if(end>start){
+            var insertIndex  = partition(nums,start,end);
+            quick_sort(nums,start,insertIndex-1);
+            quick_sort(nums,insertIndex+1,end);
+        }
+    }
+    function partition(nums,start,end){
+        var pivot = nums[start];
+        while(start<end){
+            while(nums[end]<pivot && start<end) end--;
+            if(start<end) {
+                nums[start] = nums[end];
+                start++;
+            }
+            while(nums[start]>pivot && start<end) start++;
+            if(start<end) {
+                nums[end] = nums[start];
+                end--;
+            }
+        }
+        nums[start] = pivot;
+        return start;
+    }
+    function swap(nums,i,j){
+        var temp = nums[j];
+        nums[j] = nums[i];
+        nums[i] = temp;
+    }
+};
 
 var findKthLargest = function(nums, k) {
     quick_sort(nums,0,nums.length-1);
@@ -581,11 +615,12 @@ var findKthLargest = function(nums, k) {
 
     }
     function partition(nums,pivot,start,end){
-
-        while(start<end && start>0 && end<nums.length){
-            while(nums[start]>pivot) start++;
+    //&& start>0 && end<nums.length
+        while(true){
+            while(nums[start]>pivot) start++; //最多是越过[]，碰到自己，start= end+1
             while(nums[end]<pivot) end--;
-            if(start<end) swap(nums,start,end);
+            if(start<end) swap(nums,start++,end--);   //别忘了
+            else break;
         }
         return start;
     }
@@ -618,7 +653,8 @@ var findKthLargest = function(nums, k) {
     }
 
 };
-findKthLargest([7,6,5,4,3,2,1],5);
+
+findKthLargest([3,3,3,3,3,3,3,3,3],1);
 // maxSubArray(nums);
 /***********************************************/
 /*
