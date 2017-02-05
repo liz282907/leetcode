@@ -45,3 +45,19 @@ function twoPartSearch(nums,target){
 这个时候 nums[mid]需要跟nums[j]进行比较。因为对于no duplicate的情况, mid永远不可能===j（在循环中）
 那么就不需要考虑nums[mid]===nums[j]的情况。而如果跟i比较的话。降序数组或者升序数组都会使得if(===)被否认。
 */
+
+var findMin = function(nums) {
+        var i = 0, j = nums.length-1,mid = Math.floor((i+j)/2);
+        
+        while( i < j ){
+
+            if(nums[j]<nums[mid]){
+                i = mid+1;
+            }
+            else{
+                j = mid;
+            }
+            mid = Math.floor((i+j)/2);
+        }
+        return nums[i];
+    };

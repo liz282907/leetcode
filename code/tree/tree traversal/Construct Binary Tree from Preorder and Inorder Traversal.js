@@ -9,6 +9,7 @@
  * @param {number[]} preorder
  * @param {number[]} inorder
  * @return {TreeNode}
+ * related problem: convert sorted array to binary search tree
  */
 var buildTree = function(preorder, inorder) {
 
