@@ -83,6 +83,7 @@ var findKthLargest = function(nums, k) {
  * @param  {[type]} nums [description]
  * @param  {[type]} k    [description]
  * @return {[type]}      [description]
+ * related problem有 median of two sorted array,那边有一种解法是求出两个arr中的第k个数字。这边是未排序的找第k个
  */
 var findKthLargest = function(nums, k) {
     quick_sort(nums,0,nums.length-1);
