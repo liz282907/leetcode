@@ -755,7 +755,67 @@ var findMedianSortedArrays = function(nums1, nums2) {
 
 };
 
-findMedianSortedArrays([1,3],[2])
+// findMedianSortedArrays([1,3],[2])
+var getPermutation1 = function(n,k){
+    if(n===1 && k===1 ) return '1';
+    var arr = [],findKth = k-1,locationOfSeq = k,temp = [];
+    var result = '',used = {};
+    for(i=0;i<n;i++) temp[i] = i+1;
+    var index=0;
+    for(var i=n-1;i>0;i--){
+        var childCounts = factorial(i);
+        index = Math.floor(findKth / childCounts);
+        result += temp[index];
+        temp.splice(index,1);
+        locationOfSeq = findKth % childCounts;
+        findKth = locationOfSeq;
+    }
+    result += temp[0];
+    return result;
+    
+    function factorial(n){
+        if(n===0) return 1;
+
+        var result = 1;
+        while (n) {
+            result *= n;
+            n--;
+        }
+        return result;
+    }
+
+}
+var getPermutation = function(n, k) {
+    var arr = [],findKth = k-1,locationOfSeq = k,temp = [];
+    var result = '',used = {};
+
+    for(var i=0;i<n;i++){
+        var childCounts = factorial(n-i-1);
+        arr[i] = Math.floor(findKth / childCounts);
+        locationOfSeq = findKth % childCounts;
+        findKth = locationOfSeq;
+    }
+    for(i=0;i<n;i++) temp[i] = i+1;
+
+    for(i=0;i<n;i++){
+        var initial = temp[arr[i]];
+        result += initial;
+        temp.splice(arr[i],1);
+    }
+    return result;
+
+    function factorial(n){
+        if(n===0) return 1;
+        var result = 1;
+        while (n) {
+            result *= n;
+            n--;
+        }
+        return result;
+    }
+};
+
+getPermutation(3,2);
 
 // maxSubArray(nums);
 /***********************************************/
