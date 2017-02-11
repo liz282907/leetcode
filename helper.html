@@ -815,7 +815,43 @@ var getPermutation = function(n, k) {
     }
 };
 
-getPermutation(3,2);
+// getPermutation(3,2);
+//       时间复杂度O(n^2*m^2)       空间：O(n^2)
+var exist = function(board, word) {
+    var used = initArr(board.length,board[0].length);
+
+    for(var i=0;i<board.length;i++)
+        for(var j=0;j<board[0].length;j++){
+            if(backtrack(i,j,used,0)) return true;
+        }
+    return false;
+
+    function  backtrack(startX,startY,used,curIndex) {
+        if(curIndex===word.length) {
+            return true;
+        }
+        if(startY>=board[0].length || startY<0 || startX<0 || startX>=board.length) return false;
+        if(used[startX][startY]) return false;
+        if(board[startX][startY]!==word[curIndex]) return false;
+
+        used[startX][startY] = 1;
+
+        var result = (backtrack(startX,startY+1,used,curIndex+1) || backtrack(startX,startY-1,used,curIndex+1)
+                ||backtrack(startX-1,startY,used,curIndex+1)||backtrack(startX+1,startY,used,curIndex+1));
+
+        used[startX][startY] = 0;
+        return result;
+    }
+    function initArr(m,n){
+        var arr = [];
+        for(var i=0;i<m;i++){
+            arr[i] = new Array([]);
+            for(var j=0;j<n;j++) arr[i][j] = 0;
+        }
+        return arr;
+    }
+};
+exist(["ABCE","SFCS","ADEE"],"ABCCED")
 
 // maxSubArray(nums);
 /***********************************************/
