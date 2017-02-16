@@ -20,6 +20,7 @@ Show Similar Problems
  * 使得 nums[i] = i+1
  *   index 0 1 2 3
  *   value 1 2 3 4
+ *   related problem: find all numbers disappered in an array
  */
 var firstMissingPositive = function(nums) {
 
