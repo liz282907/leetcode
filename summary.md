@@ -71,9 +71,12 @@
 
 ---
 
-Longest Consecutive sequence: 以当前num[I]为中心，看周围的是否存在于数组中，length++，访问过的就continue
-Longest  Palindrome: expandAroundCenter，以当前节点问中心，依次计算回文长度，更新
-longestValidParentheses：遇到（就push index，遇到)就pop看是否匹配，不匹配 push index，否则pop,这样一来，最后剩下的就是不匹配的那些分隔符，他们之间的（index gap）就是valid parenthesis的长度，取其中最大的即可
+- Longest Consecutive sequence: 以当前num[I]为中心，看周围的是否存在于数组中，length++，访问过的就continue
+- Longest  Palindrome: expandAroundCenter，以当前节点问中心，依次计算回文长度，更新
+- longestValidParentheses：遇到（就push index，遇到)就pop看是否匹配，不匹配 push index，否则pop,这样一来，最后剩下的就是不匹配的那些分隔符，他们之间的（index gap）就是valid parenthesis的长度，取其中最大的即可
+- Longest Common Prefix: 横向扫描，以str[0]为初始的commonPrefix，然后对这每一个字符，对每一个单词进行检验
+- Longest Palindromic Substring: expandAroundCenter，以当前节点问中心，依次计算回文长度，更新
+- maximum subarray: 动态规划，subArr[i] = Math.max(subArr[i-1]+nums[i],nums[i]);
 
 
 Maximum Subarray 

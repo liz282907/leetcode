@@ -851,8 +851,33 @@ var exist = function(board, word) {
         return arr;
     }
 };
-exist(["ABCE","SFCS","ADEE"],"ABCCED")
+// exist(["ABCE","SFCS","ADEE"],"ABCCED")
 
+var evalRPN = function(tokens) {
+    var stack = [];
+
+    for(var i=0;i<tokens.length;i++){
+        var cur = tokens[i];
+        if(cur.search(/\d+/)===-1){
+            var second = stack.pop(),
+                first = stack.pop();
+            stack.push(operate(first,second,cur));
+
+        }else{
+            stack.push(parseInt(cur))
+        }
+    }
+    return stack[0];
+    function operate(first,second,cur){
+        switch(cur){
+            case '+': return first+second;
+            case '-': return first-second;
+            case '*': return first*second;
+            case '/': return Math.floor(first/second)
+        }
+    }
+};
+evalRPN(["10","6","9","3","+","-11","*","/","*","17","+","5","+"])
 // maxSubArray(nums);
 /***********************************************/
 /*

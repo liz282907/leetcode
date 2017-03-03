@@ -17,7 +17,7 @@
    \  /
    4 4
  */
-/**
+/**      时间O(n)       空间O(logn)
  * @param {TreeNode} root
  * @return {boolean}
  */

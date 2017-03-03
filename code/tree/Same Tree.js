@@ -9,6 +9,7 @@
  * @param {TreeNode} p
  * @param {TreeNode} q
  * @return {boolean}
+ *       时间O(n)       空间O(logn)
  */
 var isSameTree = function(p, q) {
 
