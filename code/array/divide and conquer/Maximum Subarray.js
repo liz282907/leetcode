@@ -14,6 +14,7 @@ if(sum < 0) {
 /**
  * @param {number[]} nums
  * @return {number}
+ * similar problem  Binary Tree Maximum Path Sum
  */
 var maxSubArray = function(nums) {
     var curArr = [],lastSum = 0,resultArr = [];

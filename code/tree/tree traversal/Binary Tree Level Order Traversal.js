@@ -54,7 +54,20 @@ var levelOrder = function(root) {
 
 
 /**
-解题报告的递归方法
+ * 递归方法，这个是写lowest common ancestor里面用的，可以忽略里面的parent。当然如果不想给每个node加一个空间的话，也可以分配一个数组，见下面的结题报告中的
+ * 方法，随各人咯
+ * function traverse(root,parent,level){
+    if(!root) return;
+    root.parent = parent;
+    root.level = level;
+    traverse(root.left,root,level+1);
+    traverse(root.right,root,level+1);
+  }
+  traverse(root,null,1);
+
+
+
+  解题报告的递归方法
 public class Solution {
 public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
@@ -70,4 +83,6 @@ void traverse(TreeNode root, int level,List<List<Integer>> result) {
     traverse(root.right, level+1, result);
 }
 }
+ */
+
 */

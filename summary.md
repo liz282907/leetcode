@@ -77,6 +77,8 @@
 - Longest Common Prefix: 横向扫描，以str[0]为初始的commonPrefix，然后对这每一个字符，对每一个单词进行检验
 - Longest Palindromic Substring: expandAroundCenter，以当前节点问中心，依次计算回文长度，更新
 - maximum subarray: 动态规划，subArr[i] = Math.max(subArr[i-1]+nums[i],nums[i]);
+- Lowest Common Ancestor of a Binary Tree Add to List
+最近公共parent。朴素的方法是，让一个先赶上来，然后同时向上找，通用的方法是用递归先分别在两棵树中找到各自节点，如果发现只有一棵树找到了，说明他们在一棵树中，返回找到的即可，如果均找到了，说明分散在两棵树中，公共节点为root
 
 
 Maximum Subarray 
