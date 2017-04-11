@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>alibaba</title>
+	<style type="text/css">
+		/*************
+		 * util
+		 **************/
+		.clearfix{
+			*zoom:1;
+		}
+		.clearfix:after{
+			content:"";
+			display: block;
+			clear: both;
+		}
+		.left{float: left;}
+		.right{float: right;}
+		.iconfont{color: red}
+
+		textarea {
+		    border: none;
+		    overflow: auto;
+		    outline: none;
+
+		    -webkit-box-shadow: none;
+		    -moz-box-shadow: none;
+		    box-shadow: none;
+		    border: 1px solid gray;
+		    width: 100%;
+		}
+
+		.form{
+			width: 300px;
+		}
+	</style>
+</head>
+
+<body>
+
+<section class="form">
+	<div class="form-info clearfix">
+		<label for="remark" class="left"><i class="iconfont">*</i>请填写备注</label>
+		<span class="right">(<span class="count"></span>/200)</span>
+	</div>
+	
+	<textarea name="form-input" class="remark" placeholder="最多输入200个字符"></textarea>
+	<p class="tooltip"></p>
+</section>
+	
+
+</body>
+<script type="text/javascript">
+	function handleRemarkChange(e){
+		var len = $(this).text().length;
+		if(len>200) $(".count").text("")
+	}
+	$(".remark").on("change",handleRemarkChange)
+
+</script>
+</html>

@@ -18,6 +18,7 @@
 * Merge Intervals: 创建一个newIntervals []，遍历之前的intervals，调用上面的insert interval
 * remove element： 思路同nums[index++]=nums[i];或者把右边换过来，替代当前重复值，注意for循环的i也不要直接++
 * remove duplicate element from sorted array: 一样的思路，比较是和 arr[index-k]比较
+* duplicate系列：题目类型有remove系列的，直接index++生成新的即可。有验证duplicate exists的。O(n)的复杂度的话可以用hash,但是空间大了，如果要求O（1）的空间复杂度的话，可以考虑vote的思想，当然前提是这个major一定存在。具体题目见major element。其实如果题目中说数字是1-n的，如果可以inplace更改数组的话可以用hash原地更改使得arr[i] = i。然后找不匹配的
 * permutation系列: 
     * next permutation(找到逆序的最前一个，与里面的最小交换)
     * Permutations： 全排列，used存放是否已访问，注意回溯前后used的恢复
@@ -79,6 +80,7 @@
 - maximum subarray: 动态规划，subArr[i] = Math.max(subArr[i-1]+nums[i],nums[i]);
 - Lowest Common Ancestor of a Binary Tree Add to List
 最近公共parent。朴素的方法是，让一个先赶上来，然后同时向上找，通用的方法是用递归先分别在两棵树中找到各自节点，如果发现只有一棵树找到了，说明他们在一棵树中，返回找到的即可，如果均找到了，说明分散在两棵树中，公共节点为root
+- Longest Palindromic Subsequence ： 二维dp，if(s[i]===s[j]) palindromeArr[i][j] = palindromeArr[i+1][j-1]+2; 二维数组记录的是i,j之间的最长seq的长度，相似的问题是longestPalindromic substring,用expandandaround
 
 
 Maximum Subarray 

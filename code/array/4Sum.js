@@ -5,14 +5,17 @@
  思路：类似于two sum存储第三个值的所有可能index.做hash,然后遍历数组，得到i,j，那么第三个值用hash去遍历，同时
  需要保证index是逐渐增加的，即j< hashValue[0]
  注意点：
- 1. 得到index的那个hash是不要去重的
+ 1. 得到index的那个hash是不要去重的,因为可能遇到 -1 -1 2  去重的话，后面的-1,2 index对就不会被放进去了。
+ 而之所以要存index,而不直接是值，是因为后续要保证题目中要求的index依次递增，因此要进行判断筛除
  2. 第二次遍历数组的话，因为有关的都是数值，所以需要去重，i,j的nums是可以在遍历过程中去除的，但是第三个数的index对无法去掉。或者说可以去除，但是
- 不便利。因此可以考虑在遍历过程中不进行判断，最后一次性去重，用set即可
+ 不便利（由于数字本身重复带来的index对的值重复）。因此可以考虑在遍历过程中不进行判断，最后一次性去重，用set即可。
 
  方法二：
 两个阵营配对 sum1,sum2 sum1+sum2 = target,c++里面的multimap。对于某一个值sum1的可能数组,得到sum2的可能数组。
 然后嵌套遍历。只要保证[a,b] [c,d]的index互不相同即可。js里面实现比较尴尬，很繁琐就米有写...
 [],[],[]
+
+
  */
 
 
@@ -57,3 +60,37 @@ var fourSum = function(nums, target) {
         return result;
     };
 
+
+//二刷
+var fourSum = function(nums, target) {
+    var result =[], resultSet = new Set();
+    nums.sort(function(a,b){ return a-b;})
+    var dic = {};
+
+    for(var i=0;i<nums.length-1;i++){
+        for(var j=i+1;j<nums.length;j++){
+            var sum = nums[i]+nums[j];
+            if(!dic[sum]) dic[sum] = [];
+            dic[sum].push([i,j])
+        }
+    }
+    for(i=0;i<nums.length-3;i++){
+        if(i>0 && nums[i]===nums[i-1]) continue;
+        for(j=i+1;j<nums.length-2;j++){
+            if(j>i+1 && nums[j]===nums[j-1]) continue
+            var tempSum = nums[i]+nums[j];
+            if(dic[target-tempSum]){
+                var tempArr = dic[target-tempSum];
+                for(var k=0;k<tempArr.length;k++){
+                      if(j>= tempArr[k][0]) continue;
+                      else {
+                        result.push([nums[i],nums[j],nums[tempArr[k][0]],nums[tempArr[k][1]]]);
+                      }
+                }
+            }
+                
+        }
+    }
+   
+    return result;
+};
