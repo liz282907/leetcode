@@ -73,4 +73,38 @@ var majorityElement = function(nums) {
 
 
 
+//not ac
+var majorityElement = function(nums) {
+    
+    var index  = partition(nums,0,nums.length-1),
+    	start = 0,end = nums.length-1,
+		mid = Math.ceil((end+1)/2);
+    while(index!==mid){
+    	if(index>mid) end = index;
+    	else if(index<mid) start = index;
+    	index = partition(nums,start,end);
+    }
+    return nums[index]
+    
+    function partition(nums,start,end){
+    	var randomIndex = start+Math.floor(Math.random()*(end+1-start));
+    	swap(nums,randomIndex,end);
+    	var i = start,j = end-1,target = nums[end]
+    	while(i<j){
+    		while(nums[i]<=target && i<j) i++;
+    		while(nums[j]>=target && i<j) j--;
+    		if(i<j) swap(nums,i++,j--);
+    	}
+    	swap(nums,i,end);
+    	return i;
+    }
+
+    function swap(nums,i,j){
+    	var temp = nums[j];
+    	nums[j] = nums[i];
+    	nums[i] = temp;
+    }
+};
+
+
 
