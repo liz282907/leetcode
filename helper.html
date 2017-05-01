@@ -1076,7 +1076,123 @@ var intersection = function(nums1, nums2) {
     }
     return result;
 };
-intersection([3,1,2],[1,3])
+// intersection([3,1,2],[1,3])
+var reversePairs2 = function(nums) {
+    return reverse(nums,0,nums.length-1)
+
+    function reverse(nums,start,end){
+        if(start>=end) return 0
+        var mid = Math.floor((start+end)/2);
+        var leftCount = reverse(nums,start,mid),
+            rightCount = reverse(nums,mid+1,end),
+            left = nums.slice(start,mid+1).sort(),
+            right = nums.slice(mid+1,end+1).sort();
+        var i = left.length-1,j = right.length-1,count = leftCount+rightCount;
+        while(i>=0 && j>=0){
+            if(left[i]>2*right[j]) {
+                count+= (j+1);
+                i--;
+            }else{
+                j--;
+            }
+        }
+        return count;
+    }
+    function compare(a,b){
+        return a-b;
+    }
+};
+
+
+
+var reversePairs = function(nums) {
+    return reverse(nums,0,nums.length-1)
+    function reverse(nums,start,end){
+        if(start>=end) return 0
+        var mid = Math.floor((start+end)/2);
+        var leftCount = reverse(nums,start,mid),
+            rightCount = reverse(nums,mid+1,end),
+            totalLen = end-start+1,
+            count = leftCount+rightCount;
+        var arrIndex = 0, tempArr = [];
+        //各自内部已经排好序了，因为之前用的递归
+        for(var i=start,j = mid+1,firstK = mid+1; i<=mid;i++){
+            while(nums[i]>2*nums[j] && j<=end) j++;
+            count += (j-1-mid);
+            while(nums[firstK]<=nums[i] && firstK<=end) {
+                tempArr.push(nums[firstK++]);
+            }
+            tempArr.push(nums[i]);
+        }
+        while(firstK<=end) tempArr.push(nums[firstK++]);
+        for(var m = 0;m<tempArr.length;m++) nums[start+m] = tempArr[m];
+        return count;
+    }
+};
+var reversePairs3 = function(nums) {
+    return reverse(nums,0,nums.length-1)
+
+    function reverse(nums,start,end){
+        if(start>=end) return 0
+        var mid = Math.floor((start+end)/2);
+        var leftCount = reverse(nums,start,mid),
+            rightCount = reverse(nums,mid+1,end),
+            leftLen = mid-start+1,
+            count = leftCount+rightCount;
+
+        var arrIndex = end;
+        //各自内部已经排好序了，因为之前用的递归
+        for(var i=mid,j = end; i>=start && j>= mid+1;){
+            if(nums[i]>2*nums[j]){
+                count += (j-mid);
+                i--;
+            }else{
+                j--;
+            }
+        }
+        var sorted = nums.slice(start,end).sort();
+
+        for(i=start;i<end;i++){
+            nums[i] = sorted[i-start]
+        }
+        return count;
+        
+    }
+    function compare(a,b){
+        return a-b;
+    }
+};
+// reversePairs([1,3,2,3,1])
+var numSquares = function(n) {
+    var minCount = Number.POSITIVE_INFINITY,
+        squares = countSquares(n);
+    backtrack(squares,n,0,squares.length-1)
+    return minCount;
+
+    function backtrack(squares,leftSum,curCount,end){
+        debugger
+        if(minCount===1) return;
+        if(leftSum===0 && curCount<minCount){
+            minCount = curCount;
+            return;
+        }
+        if(leftSum<0) return;
+
+        for(var i=end;i>=0;i--){
+            backtrack(squares,leftSum-squares[i],curCount+1,end);
+        }
+
+    }
+    function countSquares(n){
+        var last = Math.floor(Math.sqrt(n)),result = [];
+        for(var i=1;i<=last;i++){
+            result.push(Math.pow(i,2));
+        }
+        return result;
+    }
+};
+numSquares(44);
+
 // maxSubArray(nums);
 /***********************************************/
 /*

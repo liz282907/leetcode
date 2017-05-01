@@ -1,6 +1,45 @@
 /**
 * 常用技巧
 1.missing number可以考虑桶排序（nums[i]=i）+原地交换
+2. bit manipulation
+n&(n-1)会把最右边的1给变为0，这样可以计算1的个数，也可以用来计算是否为2的倍数（只有一个1）
+ * n&-n 是找到从右到左第一个为1的
+3. 不用loop/recursion的话，考虑数学表达式，log啥的。bit啥的
+4. 不用循环的话，可以考虑用数组的动态规划，这样内层可以不用再计算
+5. 利用闭包降低动态规划的时间 279.perfect squares
+
+var numSquares = (function() {
+        var arr = [0,1];
+
+        function countSquares(n) {
+            var last = Math.floor(Math.sqrt(n)),
+                result = [];
+            for (var i = 1; i <= last; i++) {
+                result.push(Math.pow(i, 2));
+            }
+            return result;
+        }
+
+        return function(n) {
+            if (n < arr.length) return arr[n];
+            for (var j = arr.length; j <= n; j++) {
+                var minCount = Number.POSITIVE_INFINITY;
+                var squares = countSquares(j);
+                for (var k = 0; k < squares.length; k++) {
+                    minCount = Math.min(minCount, arr[j - squares[k]] + 1);
+                }
+                arr[j] = minCount;
+            }
+            return arr[n];
+        }
+
+    })();
+
+
+
+
+
+
 
 注意点：
 1. 对于grid[0].length这种，首先要判断grid是否为null
