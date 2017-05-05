@@ -1204,7 +1204,122 @@ var rob = function(nums) {
 
     return result[nums.length-1];
 };
-rob([2,1,1,2])
+// rob([2,1,1,2])
+
+var numberOfArithmeticSlices = function(A) {
+    if(A.length<3) return 0;
+
+    var count = 0;
+    var result = [],lastSolution = [],lastGap = 0;
+
+    for(var i=0;i<A.length;i++){
+        lastSolution.push(A[i]);
+        var tempGap;
+        if(i===A.length-1) tempGap = -A[i];
+        else tempGap = A[i+1]-A[i],len = 0;
+
+        if(tempGap===lastGap) continue;
+
+        if((len = lastSolution.length)>=3) {
+            result.push([].concat(lastSolution));
+            count += (len-2)*(len-1)/2;
+        }
+
+        lastSolution = [A[i]];
+        lastGap = tempGap;
+    }
+    console.log(result)
+    return count;
+};
+// numberOfArithmeticSlices([1,2,3,4])
+
+var numberOfArithmeticSlices = function(A) {
+
+    return calSlices(A)
+    function calSlices(A) {
+        if (A.length < 3) return 0;
+
+        var count = 0;
+        var result = [],
+            lastSolution = [],
+            lastGap = 0; //注意初始值的设置
+
+        for (var i = 0; i < A.length; i++) {
+            lastSolution.push(A[i]);
+            var tempGap;
+            if (i === A.length - 1) tempGap = -A[i];
+            else tempGap = A[i + 1] - A[i], len = 0;
+
+            if (tempGap === lastGap) continue;
+            if ((len = lastSolution.length) >= 3) {
+                // result.push([].concat(lastSolution));
+                console.log(lastSolution)
+                count += calCount(len)
+            }
+            lastSolution = [A[i]];
+            lastGap = tempGap;
+        }
+        return count;
+    }
+    function calCount(len){
+        var result = 0,delta = 1;
+        for(var gap = 2; gap<= len-1; gap+= delta){
+            for(var index = 0;index<gap;index++){
+                var count = 0,innerIndex = index;
+                while(innerIndex<=len-1) {
+                    count++;
+                    innerIndex+=gap;
+                }
+                if(count>=3) result += (count-2) * (count-1)/2;
+            }
+        }
+        result += (len-2)*(len-1)/2
+        return result;
+    }
+};
+// numberOfArithmeticSlices([2,2,3,4])
+var longestPalindrome = function(s) {
+    var dic = {},result = 0,existOne = false;
+    for(var i=0;i<s.length;i++){
+        var cur = s[i];
+        if(!dic[cur]) dic[cur] = 0;
+        dic[cur]++;
+    }
+    Object.keys(dic).forEach(function(c){
+        console.log(c,dic[c],dic[c]&1)
+        if((dic[c] & 1)===0) result+=dic[c];
+        else existOne = true;
+    })
+    if(existOne) result += 1;
+    return result;
+};
+// longestPalindrome("abccccdd")
+
+var findLongestWord = function(s, d) {
+    d.sort(function(a,b){
+        var len = b.length - a.length ;
+        if(len!==0) return len;
+        else return a>b;
+    })
+    console.log(d)
+    for(var i=0;i<d.length;i++){
+        if(isSubstr(s,d[i])){
+            console.log(d[i])
+            return d[i];
+        }
+    }
+    return '';
+
+    function isSubstr(parent,sub){
+        var i=0;
+        for(var c of parent){
+            if(c===sub[i] && i<sub.length) i++;
+        }
+        if(i===sub.length) return true;
+        return false
+    }
+};
+findLongestWord("abpcplea",["ale","apple","monkey","plea"])
 
 // maxSubArray(nums);
 /***********************************************/
