@@ -1387,7 +1387,21 @@ var minDistance = function(height, width, tree, squirrel, nuts) {
 
 };
 
-minDistance(5,7,[2,2],[4,4],[[3,0], [2,5]])
+// minDistance(5,7,[2,2],[4,4],[[3,0], [2,5]])
+var singleNonDuplicate = function(nums) {
+    var left = 0,right = nums.length-1;
+    while(left<right){
+        var mid = Math.floor((left+right)/2);
+        var pairValue;
+        if(mid&1) pairValue = nums[mid-1];
+        else pairValue = nums[mid+1];
+
+        if(nums[mid]!==pairValue) right = mid;
+        else left = mid+1;
+    }
+    return nums[left];
+};
+singleNonDuplicate([1,1,2])
 
 // maxSubArray(nums);
 /***********************************************/

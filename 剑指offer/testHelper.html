@@ -103,7 +103,70 @@ function reOrderArray(array)
         nums[i] = temp;
     }
 }
-reOrderArray([1,2,3,4,5,6,7])
+// reOrderArray([1,2,3,4,5,6,7])
+function printMatrix(matrix) {
+    var used = init(),
+        direction = {
+            right: [0, 1],
+            down: [1, 0],
+            left: [0, -1],
+            up: [-1, 0]
+        },
+        directionSeq = { right: 'down', down: 'left', left: 'up', up: 'right' };
+    var result = [],
+        count = matrix.length * matrix[0].length;
+
+    backtrack(0, 0, used, count, 'right');
+    console.log(result)
+    return result;
+
+    function backtrack(x, y, used, left, curDir) {
+
+        if (left <= 0) return
+        result.push(matrix[x][y]);
+        used[x][y] = true;
+
+        var tryNextX = x + direction[curDir][0],
+            tryNextY = y + direction[curDir][1];
+        if (outofBound(tryNextX, tryNextY) || used[tryNextX][tryNextY]) { //换方向
+            var nextDirection = directionSeq[curDir];
+            var nextX = x + direction[nextDirection][0],
+                nextY = y + direction[nextDirection][1];
+            backtrack(nextX, nextY, used, left - 1, nextDirection);
+        }
+        else backtrack(tryNextX, tryNextY, used, left - 1, curDir)
+    }
+
+    function outofBound(x, y) {
+        return x >= matrix.length || x < 0 || y >= matrix[0].length || y < 0
+    }
+
+    function init() {
+        var used = [];
+        for (var i = 0; i < matrix.length; i++) {
+            used[i] = [];
+            for (var j = 0; j < matrix[0].length;j++)
+                used[i][j] = false;
+        }
+        return used;
+    }
+}
+// printMatrix([[1]])
+function IsPopOrder(pushV, popV)
+{
+    var arr = [];
+    for(var i=0;i<popV.length;i++){
+        var cur = popV[i],top;
+        while(!arr.length || (top=arr.slice(-1)[0])!==cur){
+            if(!pushV.length) break;
+            arr.push(pushV.shift());
+        }
+        if(!pushV.length && top!==cur) return false;
+        arr.pop();
+    }
+    return true;
+}
+IsPopOrder([1,2,3,4,5],[4,5,3,1,2])
 // partition([8,8,7,7,7],0,4)
 </script>
 
