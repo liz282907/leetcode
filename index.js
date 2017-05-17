@@ -76,6 +76,9 @@ longest substring 可以考虑 pointer 。详见 longest substring without repea
 还有reverse linked list这题
 
 
+经典的divide and conquer的解法
+241.Different Ways to Add Parentheses
+当有问题用其他方法没什么思路的时候看看divide and conquer，化繁为简
 
 
 to see:
