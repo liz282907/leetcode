@@ -166,7 +166,24 @@ function IsPopOrder(pushV, popV)
     }
     return true;
 }
-IsPopOrder([1,2,3,4,5],[4,5,3,1,2])
+// IsPopOrder([1,2,3,4,5],[4,5,3,1,2])
+function VerifySquenceOfBST(sequence)
+{
+    if(sequence.length<=0) return false;
+    return verifySequence(sequence,0,sequence.length-1);
+    function verifySequence(nums,start,end){
+        if(start>=end) return true;
+        var root = nums[end],i = start,leftEnd;
+        while(nums[i]<root && i<end) i++;
+        leftEnd = i-1;
+        while(nums[i]>root && i<end) i++;
+        
+        if(i<end) return false;
+        return verifySequence(nums,start,leftEnd) && verifySequence(nums,leftEnd+1,end-1);
+    }
+
+}
+VerifySquenceOfBST
 // partition([8,8,7,7,7],0,4)
 </script>
 

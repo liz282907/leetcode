@@ -1401,7 +1401,33 @@ var singleNonDuplicate = function(nums) {
     }
     return nums[left];
 };
-singleNonDuplicate([1,1,2])
+// singleNonDuplicate([1,1,2])
+var copyRandomList = function(head) {
+    if(!head) return null;
+    var dummy = new RandomListNode(-1),prev,newPrev,map = new Map();
+    prev = head;
+    newPrev = dummy;
+    while(prev){
+        var node = new RandomListNode(prev.label);
+        newPrev.next = node;
+        map.set(prev,node);
+        newPrev = node;
+        prev = prev.next;
+    }
+    prev = head;
+    while(prev){
+        var mapPrev = map.get(prev); //对应的新链表上的节点
+        mapPrev.random = map.get(prev.random);
+        prev = prev.next;
+    }
+    return dummy.next;
+};
+function RandomListNode(label) {
+      this.label = label;
+      this.next = this.random = null;
+  }
+  var head = new RandomListNode(-1)
+  copyRandomList(head)
 
 // maxSubArray(nums);
 /***********************************************/
