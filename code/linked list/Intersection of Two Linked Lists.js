@@ -45,6 +45,13 @@ Show Tags
  * ps。感觉题目有丢丢像树的一题，最近公共祖先。当时的思路一种是求出两点所在的位置（层数），然后让底层的那个赶上去，直到他们层数相同，
  * 然后一起去找parent。
  * 那么这一题其实也可以这么想，各求出a,b的长度，然后让一个先走abs(alen-blen).然后一起走。
+ * 注意，判断条件得放在while的表达式中。不能这么写
+ * while(true){
+ * 		if(..)
+ *
+ * 		if(prev1===prev2) break;
+ * }
+ * 这样会错遇过这种情况，就是第一个数就是公共节点，那么就会跳过。
  */
 var getIntersectionNode = function(headA, headB) {
     if(!headA  || !headB) return null;
@@ -56,5 +63,4 @@ var getIntersectionNode = function(headA, headB) {
 		else preB = preB.next;
 	}
 	return preB;
-
 };
